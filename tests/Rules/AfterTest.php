@@ -31,19 +31,18 @@ class AfterTest extends TestCase
 
     /**
      * @dataProvider getInvalidDates
-     * @expectedException \Exception
      */
     public function testANonWellFormedDateCannotBeValidated($date)
     {
-        $this->validator->fillParameters(["tomorrow"])->check($date);
+        $this->assertFalse($this->validator->fillParameters(["tomorrow"])->check($date));
     }
 
     /**
-     * @expectedException \Exception
+     * @dataProvider getInvalidDates
      */
-    public function testUserProvidedParamCannotBeValidatedBecauseItIsInvalid()
+    public function testUserProvidedParamCannotBeValidatedBecauseItIsInvalid($date)
     {
-        $this->validator->fillParameters(["to,morrow"])->check("now");
+        $this->assertFalse($this->validator->fillParameters(["to,morrow"])->check($date));
     }
 
     public function getInvalidDates()

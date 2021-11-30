@@ -19,7 +19,6 @@ class Before extends Rule
      *
      * @param mixed $value
      * @return bool
-     * @throws \Exception
      */
     public function check($value): bool
     {
@@ -27,11 +26,7 @@ class Before extends Rule
         $time = $this->parameter('time');
 
         if (!$this->isValidDate($value)) {
-            throw $this->throwException($value);
-        }
-
-        if (!$this->isValidDate($time)) {
-            throw $this->throwException($time);
+            return false;
         }
 
         return $this->getTimeStamp($time) > $this->getTimeStamp($value);
